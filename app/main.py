@@ -31,6 +31,7 @@ def favicon():
 
 # Endpoint: POST /optimize-energy
 @app.post("/optimize-energy", response_model=OptimizeEnergyResponse)
+@app.post("/optimize-energy/", response_model=OptimizeEnergyResponse, include_in_schema=False)
 def optimize_energy(req: OptimizeEnergyRequest):
     """
     Main GridWise endpoint:
@@ -72,6 +73,15 @@ def optimize_energy(req: OptimizeEnergyRequest):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/optimize-energy", include_in_schema=False)
+@app.get("/optimize-energy/", include_in_schema=False)
+def get_optimize_energy_info():
+    return {
+        "message": "POST /optimize-energy requires an HTTP POST request with a scenario JSON payload.",
+        "usage": "Use POST /optimize-energy, visit / for the interactive Web UI Dashboard, or visit /docs for API documentation."
+    }
+
 
 # Static Files for Web UI
 static_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "static")
