@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GridWise — Smart Campus Energy Optimization Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="navbar">
+            <div class="brand">
+                <div class="brand-icon">⚡</div>
+                <div>
+                    <h1>GridWise <span class="badge-tag">v2.0</span></h1>
+                    <p class="subtitle">Smart Campus Energy Optimization • BUP CSE Fest 2026</p>
+                </div>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot pulse" id="health-dot"></div>
+                <span id="health-text">Checking System Status...</span>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <main class="grid-layout">
+            <!-- Left Panel: Controls & Scenario Selector -->
+            <section class="card glass-card control-panel">
+                <h2><span class="icon">🎯</span> Scenario Presets</h2>
+                <p class="description">Select a sample scenario or enter custom operator notes:</p>
+
+                <div class="scenario-list" id="scenario-selector">
+                    <!-- Dynamic Buttons loaded via JS -->
+                </div>
+
+                <hr class="divider">
+
+                <h2><span class="icon">💬</span> Campus Operator Notes</h2>
+                <div id="notes-container" class="notes-list">
+                    <!-- Dynamic notes -->
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" id="btn-optimize">
+                        <span>⚡ Run GridWise Optimizer</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Right Panel: Results & Analytics -->
+            <section class="results-panel">
+                <!-- Metrics Bar -->
+                <div class="metrics-grid">
+                    <div class="metric-card glass-card">
+                        <span class="metric-label">Total Cost</span>
+                        <span class="metric-value" id="val-cost">0.00 <span class="metric-unit">BDT</span></span>
+                    </div>
+                    <div class="metric-card glass-card">
+                        <span class="metric-label">Total Grid Energy</span>
+                        <span class="metric-value" id="val-grid">0.00 <span class="metric-unit">kWh</span></span>
+                    </div>
+                    <div class="metric-card glass-card">
+                        <span class="metric-label">Peak Grid Load</span>
+                        <span class="metric-value" id="val-peak">0.00 <span class="metric-unit">kWh</span></span>
+                    </div>
+                    <div class="metric-card glass-card">
+                        <span class="metric-label">End-of-Day Neutrality</span>
+                        <span class="metric-value text-success" id="val-neutrality">100% OK</span>
+                    </div>
+                </div>
+
+                <!-- LLM Directive Interpretation View -->
+                <div class="card glass-card directive-card">
+                    <h3><span class="icon">🧠</span> LLM Operator Directive Interpretation</h3>
+                    <div id="directives-display" class="directives-grid">
+                        <div class="placeholder-text">Click "Run GridWise Optimizer" to analyze notes...</div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="card glass-card chart-card">
+                    <h3><span class="icon">📊</span> 24-Hour Energy Profile & Battery SOC</h3>
+                    <div class="chart-container">
+                        <canvas id="energyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Plan Summary Box -->
+                <div class="card glass-card summary-card">
+                    <h3><span class="icon">📝</span> Strategy Summary</h3>
+                    <p id="plan-summary-text" class="summary-content">No optimization run yet.</p>
+                </div>
+
+                <!-- Hourly Plan Table -->
+                <div class="card glass-card table-card">
+                    <h3><span class="icon">📋</span> 24-Hour Optimal Operating Plan</h3>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Hour</th>
+                                    <th>Demand (kWh)</th>
+                                    <th>Solar Used (kWh)</th>
+                                    <th>Battery Action</th>
+                                    <th>Battery (kWh)</th>
+                                    <th>Battery SOC (kWh)</th>
+                                    <th>Grid Import (kWh)</th>
+                                    <th>Tariff (BDT)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="plan-table-body">
+                                <tr>
+                                    <td colspan="8" class="text-center">Select a scenario and run optimization.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

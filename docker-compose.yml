@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  gridwise-api:
+    build: .
+    container_name: gridwise_service
+    ports:
+      - "8050:8050"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    restart: always
